@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -18,9 +19,15 @@ public class Player : MonoBehaviour
     private float _yVelocity = 0f;
     private bool _canDoubleJump = false;
 
+    [SerializeField]
+    private int _coins;
+
+    private UIManager _uiManager;
+
     void Start()
     {
         _controller = this.GetComponent<CharacterController>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
 
     void Update()
@@ -51,5 +58,12 @@ public class Player : MonoBehaviour
         velocity.y = _yVelocity;
 
         _controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void AddCoins()
+    {
+        _coins++;
+
+        _uiManager.UpdateCoinDisplay(_coins);
     }
 }

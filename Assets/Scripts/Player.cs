@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -24,10 +25,17 @@ public class Player : MonoBehaviour
 
     private UIManager _uiManager;
 
+    [SerializeField]
+    private int _lives = 3;
+
     void Start()
     {
         _controller = this.GetComponent<CharacterController>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+
+
+        _uiManager.UpdateCoinDisplay(_coins);
+        _uiManager.UpdateLivesDisplay(_lives);
     }
 
     void Update()
@@ -35,6 +43,11 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal"); 
         Vector3 direction = new Vector3(horizontalInput, 0, 0);
         Vector3 velocity = direction * _speed;
+
+        if (_controller.enabled == false) {
+            Debug.Log("CharacterController not enabled");
+            return;
+        }
 
         if (_controller.isGrounded)
         {
@@ -65,5 +78,16 @@ public class Player : MonoBehaviour
         _coins++;
 
         _uiManager.UpdateCoinDisplay(_coins);
+    }
+
+    public void Damage()
+    {
+        _lives--;
+        _uiManager.UpdateLivesDisplay(_lives);
+
+        if (_lives < 1)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }

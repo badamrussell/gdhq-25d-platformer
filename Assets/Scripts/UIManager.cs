@@ -1,15 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-
     [SerializeField]
-    private Text _coinText;
-    [SerializeField]
-    private Text _livesText;
+    private Text _coinText, _livesText;
 
     public void UpdateCoinDisplay(int coins)
     {
@@ -20,4 +17,5 @@ public class UIManager : MonoBehaviour
     {
         _livesText.text = "Lives: " + lives.ToString();
     }
+   
 }

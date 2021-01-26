@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +24,9 @@ public class DeadZone : MonoBehaviour
             {
                 cc.enabled = false;
             }
+
             other.transform.position = _respawnPoint.transform.position;
+
             StartCoroutine(CCEnableRoutine(cc));
         }
     }
@@ -34,4 +36,5 @@ public class DeadZone : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         controller.enabled = true;
     }
+
 }
